@@ -749,7 +749,23 @@ end
 
 
 
+----Roll AA
+local roll = ui.reference('AA', 'Anti-aimbot angles', 'Roll')
 
+local force_roll_angle = ui.new_slider('AA', 'Anti-aimbot angles', 'Roll', -50, 50, 0)
+local active_roll = ui.new_hotkey('AA', 'Anti-aimbot angles', 'Roll on key \nhotkey', false)
+
+client.set_event_callback('setup_command', function(cmd)
+   local active_roll = ui.get(active_roll)
+   local roll_angle = ui.get(force_roll_angle)
+
+   if active_roll then
+      ui.set(roll, 0)
+      cmd.roll = roll_angle
+   else
+      ui.set(roll, roll_angle)
+   end
+end)
 
 
 
