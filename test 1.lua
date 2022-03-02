@@ -23,7 +23,8 @@ client.color_log(255, 255, 255, "|----------------------------------------------
 local label = ui.new_label("AA", "Other",'---- KRIPSI MISC LUA SECTION STARTED  ----')
 
 local preset_choice = ui.new_combobox("AA", "Anti-aimbot angles", "Preset choice", {"Default", "Sigma Prediction", "Acatel.us", "Tank aa", "DrainYaw", "White aa", "Clown aa", "Static", "Fake flick"})
-
+local fake_flick = ui.new_hotkey("AA", "Anti-aimbot angles", "Fake Flick")
+local fake_flick_invert = ui.new_hotkey("AA", "Anti-aimbot angles", "Inverter")
    
 -- Create new menu items
 local new_menu_items = {
@@ -671,26 +672,51 @@ local function run_command()
 	    ui.set_visible(jyawslide, false)
 	    ui.set_visible(pitch, false)
 	    ui.set_visible(yawbase, false)
-	    ui.set_visible(freestanding, true)
-	    ui.set_visible(freestanding2, true)
+	    ui.set_visible(freestanding, false)
+	    ui.set_visible(freestanding2, false)
 	    ui.set_visible(fyawlimit, false)
 	    ui.set_visible(freestand_byaw, false)
         ui.set_visible(Desync, false)
+		
+		
+ elseif ui.get(preset_choice) == "Fake flick" then
+    ui.set_visible(yawbody, false)
+    ui.set_visible(yaw, false)
+    ui.set_visible(bodyyaw, false)
+    ui.set_visible(bodyyaw2, false)
+    ui.set_visible(edge, true)
+    ui.set_visible(jyaw, false)
+    ui.set_visible(jyawslide, false)
+    ui.set_visible(pitch, false)
+    ui.set_visible(yawbase, false)
+    ui.set_visible(freestanding, false)
+    ui.set_visible(freestanding2, false)
+    ui.set_visible(fyawlimit, false)
+    ui.set_visible(freestand_byaw, false)
+    ui.set_visible(fake_flick, true)
+    ui.set_visible(fake_flick_invert, true)
+		
+		
+		
+		
+		
+		
     else
-    	ui.set_visible(yawbody, false)
-	    ui.set_visible(yaw, false)
-	    ui.set_visible(bodyyaw, false)
-	    ui.set_visible(bodyyaw2, false)
-	    ui.set_visible(edge, true)
-	    ui.set_visible(jyaw, false)
-	    ui.set_visible(jyawslide, false)
-	    ui.set_visible(pitch, false)
-	    ui.set_visible(yawbase, false)
-	    ui.set_visible(freestanding, true)
-	    ui.set_visible(freestanding2, true)
-	    ui.set_visible(fyawlimit, false)
-	    ui.set_visible(freestand_byaw, false)
-        ui.set_visible(Desync, false)
+    ui.set_visible(yawbody, false)
+    ui.set_visible(yaw, false)
+    ui.set_visible(bodyyaw, false)
+    ui.set_visible(bodyyaw2, false)
+    ui.set_visible(edge, true)
+    ui.set_visible(jyaw, false)
+    ui.set_visible(jyawslide, false)
+    ui.set_visible(pitch, false)
+    ui.set_visible(yawbase, false)
+    ui.set_visible(freestanding, true)
+    ui.set_visible(freestanding2, true)
+    ui.set_visible(fyawlimit, false)
+    ui.set_visible(freestand_byaw, false)
+    ui.set_visible(fake_flick, false)
+    ui.set_visible(fake_flick_invert, false)
         
     end
     
@@ -1144,7 +1170,28 @@ end)
 
 
 
+--fakeflick
 
+local curtime = globals.curtime()
+
+fakeFlick = false
+
+client.set_event_callback("setup_command", function(cmd)
+    fakeFlick = not fakeFlick
+    if ui.get(fake_flick) then
+    ui.set(fl_limit, 1)
+    else
+    ui.set(fl_limit, 14)
+    end
+    ui.set(byaw_val, (ui.get(fake_flick_invert) and -180 or 180))
+    ui.set(byaw, "Static")
+    if globals.curtime() > curtime + 0.1 and ui.get(fake_flick) then
+        ui.set(yaw_val, (ui.get(fake_flick_invert) == 1 and -100 or 100))
+        curtime = globals.curtime()
+    else
+        ui.set(yaw_val, 0)
+    end
+end)
 
 
 
