@@ -22,7 +22,7 @@ client.color_log(255, 255, 255, "|----------------------------------------------
 
 local label = ui.new_label("AA", "Other",'---- KRIPSI MISC LUA SECTION STARTED  ----')
 
-local preset_choice = ui.new_combobox("AA", "Anti-aimbot angles", "Preset choice", {"Default", "Sigma Prediction", "Acatel.us", "Tank aa", "DrainYaw", "White aa", "Clown aa", "Static"})
+local preset_choice = ui.new_combobox("AA", "Anti-aimbot angles", "Preset choice", {"Default", "Sigma Prediction", "Acatel.us", "Tank aa", "DrainYaw", "White aa", "Clown aa", "Static", "Fake flick"})
 
    
 -- Create new menu items
