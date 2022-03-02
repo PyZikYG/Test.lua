@@ -68,7 +68,8 @@ local state = "NONE"
 
 
 
-     
+
+
 -- acatel.us !!!
 local function acatel_us_aa()
 	local localplayer = entity.get_local_player()
@@ -87,14 +88,14 @@ local function acatel_us_aa()
         ui.set(bodyyaw2, -79)
         ui.set(freestand_byaw, false)
         ui.set(fyawlimit, math.random(30,45))
-            end
--- sigma
+end
+       
+
 local function sigma_prediction_aa()
 	local localplayer = entity.get_local_player()
 	local flags = entity.get_prop(localplayer, "m_fFlags")
 	local vx, vy = entity.get_prop(localplayer, "m_vecVelocity")
 	local velocity = math.floor(math.min(10000, math.sqrt(vx*vx + vy*vy) + 0.5))
-	
         --slowwalk
         ui.set(pitch, "Default")
         ui.set(yawbase, "At targets")
@@ -106,7 +107,8 @@ local function sigma_prediction_aa()
         ui.set(bodyyaw2, 0)
         ui.set(freestand_byaw, true)
         ui.set(fyawlimit, 60)
-            end
+end
+    
 -- tank aa !!!
 local function Tank_aa()
 	local localplayer = entity.get_local_player()
@@ -125,7 +127,8 @@ local function Tank_aa()
         ui.set(bodyyaw2, 0)
         ui.set(freestand_byaw, false)
         ui.set(fyawlimit, 58)
-           end
+        
+    end
 -- DrainYaw !!!
 local function DrainYaw()
 	local localplayer = entity.get_local_player()
@@ -144,13 +147,14 @@ local function DrainYaw()
         ui.set(bodyyaw2, 0)
         ui.set(freestand_byaw, false)
         ui.set(fyawlimit, 60)
-            end
+    end
+
 local function Clown_aa()
 	local localplayer = entity.get_local_player()
 	local flags = entity.get_prop(localplayer, "m_fFlags")
 	local vx, vy = entity.get_prop(localplayer, "m_vecVelocity")
 	local velocity = math.floor(math.min(10000, math.sqrt(vx*vx + vy*vy) + 0.5))
-	i
+	
         --slowwalk
         ui.set(pitch, "Default")
         ui.set(yawbase, "At targets")
@@ -162,7 +166,8 @@ local function Clown_aa()
         ui.set(bodyyaw2, 180)
         ui.set(freestand_byaw, true)
         ui.set(fyawlimit, 60)
-           end
+        
+    end
 --White aa
 local function White_aa()
 	local localplayer = entity.get_local_player()
@@ -181,9 +186,8 @@ local function White_aa()
         ui.set(bodyyaw2, 0)
         ui.set(freestand_byaw, true)
         ui.set(fyawlimit, 60)
-          end
-      
-
+       
+    end
 
 local function static_aa()
 	local localplayer = entity.get_local_player()
@@ -202,7 +206,7 @@ local function static_aa()
         ui.set(bodyyaw2, 180)
         ui.set(freestand_byaw, true)
         ui.set(fyawlimit, 60)
-        end
+    end
 
 
 --on_run_command
