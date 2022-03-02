@@ -60,7 +60,7 @@ local freestanding, freestanding2 = ui.reference("AA", "Anti-aimbot angles", "Fr
 local fyawlimit = ui.reference("AA", "Anti-aimbot angles", "Fake yaw limit")
 local freestand_byaw = ui.reference("AA", "Anti-aimbot angles", "Freestanding body yaw")
 local slow_walk, slow_walk2 = ui.reference("AA", "Other", "Slow motion")
-local Desync = ui_reference("aa", "anti-aimbot angles", "Roll")
+
 
 
 -- this is here for debugging or indicators whatever you want idgaf
@@ -675,7 +675,7 @@ local function run_command()
 	    ui.set_visible(freestanding2, true)
 	    ui.set_visible(fyawlimit, false)
 	    ui.set_visible(freestand_byaw, false)
-        ui.set_visible(Desync, false)
+      
     else
     	ui.set_visible(yawbody, false)
 	    ui.set_visible(yaw, false)
@@ -690,7 +690,7 @@ local function run_command()
 	    ui.set_visible(freestanding2, true)
 	    ui.set_visible(fyawlimit, false)
 	    ui.set_visible(freestand_byaw, false)
-        ui.set_visible(Desync, false)
+        
         
     end
     
@@ -749,23 +749,6 @@ end
 
 
 
-----Roll AA
-local roll = ui.reference('AA', 'Anti-aimbot angles', 'Roll')
-
-local force_roll_angle = ui.new_slider('AA', 'Anti-aimbot angles', 'Roll', -50, 50, 0)
-local active_roll = ui.new_hotkey('AA', 'Anti-aimbot angles', 'Roll on key \nhotkey', false)
-
-client.set_event_callback('setup_command', function(cmd)
-   local active_roll = ui.get(active_roll)
-   local roll_angle = ui.get(force_roll_angle)
-
-   if active_roll then
-      ui.set(roll, 0)
-      cmd.roll = roll_angle
-   else
-      ui.set(roll, roll_angle)
-   end
-end)
 
 
 
