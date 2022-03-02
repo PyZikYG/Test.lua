@@ -16,13 +16,13 @@ local name = persona_api.GetName()
 client.color_log(255, 255, 255, "|--------------------------------------------------------|")
 client.color_log(21, 235, 220,  "                       Welcome " .. name .. "!            ")
 client.color_log(215, 115, 222, "                      Coded by KRIPSI#5061                 ")
-client.color_log(235, 221, 21,  "                    Last Updated: 02/03/2022.               ")
+client.color_log(235, 221, 21,  "                    Last Updated: 01/03/2022.               ")
 client.color_log(255, 255, 255, "|--------------------------------------------------------|")
 -- our menu elements :D
 
 local label = ui.new_label("AA", "Other",'---- KRIPSI MISC LUA SECTION STARTED  ----')
 
-local preset_choice = ui.new_combobox("AA", "Anti-aimbot angles", "Preset choice", {"Default", "Sigma Prediction", "Acatel.us", "Tank aa", "DrainYaw", "White aa", "Clown aa", "Static" "Fake flick"})
+local preset_choice = ui.new_combobox("AA", "Anti-aimbot angles", "Preset choice", {"Default", "Sigma Prediction", "Acatel.us", "Tank aa", "DrainYaw", "White aa", "Clown aa", "Static"})
 
    
 -- Create new menu items
@@ -216,6 +216,78 @@ local function acatel_us_aa()
     end
 end
 
+local function sigma_prediction_aa()
+	local localplayer = entity.get_local_player()
+	local flags = entity.get_prop(localplayer, "m_fFlags")
+	local vx, vy = entity.get_prop(localplayer, "m_vecVelocity")
+	local velocity = math.floor(math.min(10000, math.sqrt(vx*vx + vy*vy) + 0.5))
+	if ui.get(slow_walk) and ui.get(slow_walk2) then
+        --slowwalk
+        ui.set(pitch, "Default")
+        ui.set(yawbase, "At targets")
+        ui.set(yaw, 0)
+        ui.set(yawbody, "180")
+        ui.set(jyaw, "Offset")
+        ui.set(jyawslide, math.random(0,60))
+        ui.set(bodyyaw, "Jitter")
+        ui.set(bodyyaw2, 0)
+        ui.set(freestand_byaw, true)
+        ui.set(fyawlimit, 60)
+        state = "SLOWWALK"
+    elseif flags == 263 and velocity < 250 then
+        --crouch
+        ui.set(pitch, "Default")
+        ui.set(yawbase, "At targets")
+        ui.set(yaw, 0)
+        ui.set(yawbody, "180")
+        ui.set(jyaw, "Random")
+        ui.set(jyawslide, 7)
+        ui.set(bodyyaw, "Static")
+        ui.set(bodyyaw2, -95)
+        ui.set(freestand_byaw, true)
+        ui.set(fyawlimit, 60)
+        state = "CROUCH"
+    elseif flags == 256 or flags == 262 or velocity > 250 then
+        --air
+        ui.set(pitch, "Default")
+        ui.set(yawbase, "At targets")
+        ui.set(yaw, 0)
+        ui.set(yawbody, "180")
+        ui.set(jyaw, "Center")
+        ui.set(jyawslide, 35)
+        ui.set(bodyyaw, "Jitter")
+        ui.set(bodyyaw2, 0)
+        ui.set(freestand_byaw, true)
+        ui.set(fyawlimit, 60)
+        state = "AIR"
+    elseif flags == 257 and velocity > 10 and velocity < 250 then
+        --moving
+        ui.set(pitch, "Default")
+        ui.set(yawbase, "At targets")
+        ui.set(yaw, 0)
+        ui.set(yawbody, "180")
+        ui.set(jyaw, "Center")
+        ui.set(jyawslide, 60)
+        ui.set(bodyyaw, "Jitter")
+        ui.set(bodyyaw2, 0)
+        ui.set(freestand_byaw, true)
+        ui.set(fyawlimit, 60)
+        state = "MOVING"
+    else
+        --stand
+        ui.set(pitch, "Default")
+        ui.set(yawbase, "At targets")
+        ui.set(yaw, 0)
+        ui.set(yawbody, "180")
+        ui.set(jyaw, "Random")
+        ui.set(jyawslide, 7)
+        ui.set(bodyyaw, "Static")
+        ui.set(bodyyaw2, -95)
+        ui.set(freestand_byaw, true)
+        ui.set(fyawlimit, 60)
+        state = "STAND"
+    end
+end
 -- tank aa !!!
 local function Tank_aa()
 	local localplayer = entity.get_local_player()
@@ -587,9 +659,6 @@ local function static_aa()
 end
 
 
-
-
-
 --on_run_command
 local function run_command()
 	if ui.get(preset_choice) == "Default" then
@@ -641,6 +710,7 @@ local function run_command()
     	static_aa()
     end
 end
+
 
 
 
