@@ -68,87 +68,14 @@ local state = "NONE"
 
 
 
-
-local function sigma_prediction_aa()
-	local localplayer = entity.get_local_player()
-	local flags = entity.get_prop(localplayer, "m_fFlags")
-	local vx, vy = entity.get_prop(localplayer, "m_vecVelocity")
-	local velocity = math.floor(math.min(10000, math.sqrt(vx*vx + vy*vy) + 0.5))
-	if ui.get(slow_walk) and ui.get(slow_walk2) then
-        --slowwalk
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Offset")
-        ui.set(jyawslide, math.random(0,60))
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "SLOWWALK"
-    elseif flags == 263 and velocity < 250 then
-        --crouch
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Random")
-        ui.set(jyawslide, 7)
-        ui.set(bodyyaw, "Static")
-        ui.set(bodyyaw2, -95)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "CROUCH"
-    elseif flags == 256 or flags == 262 or velocity > 250 then
-        --air
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 35)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "AIR"
-    elseif flags == 257 and velocity > 10 and velocity < 250 then
-        --moving
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 60)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "MOVING"
-    else
-        --stand
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Random")
-        ui.set(jyawslide, 7)
-        ui.set(bodyyaw, "Static")
-        ui.set(bodyyaw2, -95)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "STAND"
-    end
-end
-
+     
 -- acatel.us !!!
 local function acatel_us_aa()
 	local localplayer = entity.get_local_player()
 	local flags = entity.get_prop(localplayer, "m_fFlags")
 	local vx, vy = entity.get_prop(localplayer, "m_vecVelocity")
 	local velocity = math.floor(math.min(10000, math.sqrt(vx*vx + vy*vy) + 0.5))
-	if ui.get(slow_walk) and ui.get(slow_walk2) then
+	
         --slowwalk
         ui.set(pitch, "Default")
         ui.set(yawbase, "At targets")
@@ -160,68 +87,14 @@ local function acatel_us_aa()
         ui.set(bodyyaw2, -79)
         ui.set(freestand_byaw, false)
         ui.set(fyawlimit, math.random(30,45))
-        state = "SLOWWALK"
-    elseif flags == 263 and velocity < 250 then
-        --crouch
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, math.random(5,-10))
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 0)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, -79)
-        ui.set(freestand_byaw, false)
-        ui.set(fyawlimit, math.random(30,45))
-        state = "CROUCH"
-    elseif flags == 256 or flags == 262 or velocity > 250 then
-        --air
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 25)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, false)
-        ui.set(fyawlimit, 60)
-        state = "AIR"
-    elseif flags == 257 and velocity > 10 and velocity < 250 then
-        --moving
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 79)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, false)
-        ui.set(fyawlimit, 60)
-        state = "MOVING"
-    else
-        --stand
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 25)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, false)
-        ui.set(fyawlimit, 60)
-        state = "STAND"
-    end
-end
-
+            end
+-- sigma
 local function sigma_prediction_aa()
 	local localplayer = entity.get_local_player()
 	local flags = entity.get_prop(localplayer, "m_fFlags")
 	local vx, vy = entity.get_prop(localplayer, "m_vecVelocity")
 	local velocity = math.floor(math.min(10000, math.sqrt(vx*vx + vy*vy) + 0.5))
-	if ui.get(slow_walk) and ui.get(slow_walk2) then
+	
         --slowwalk
         ui.set(pitch, "Default")
         ui.set(yawbase, "At targets")
@@ -233,68 +106,14 @@ local function sigma_prediction_aa()
         ui.set(bodyyaw2, 0)
         ui.set(freestand_byaw, true)
         ui.set(fyawlimit, 60)
-        state = "SLOWWALK"
-    elseif flags == 263 and velocity < 250 then
-        --crouch
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Random")
-        ui.set(jyawslide, 7)
-        ui.set(bodyyaw, "Static")
-        ui.set(bodyyaw2, -95)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "CROUCH"
-    elseif flags == 256 or flags == 262 or velocity > 250 then
-        --air
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 35)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "AIR"
-    elseif flags == 257 and velocity > 10 and velocity < 250 then
-        --moving
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 60)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "MOVING"
-    else
-        --stand
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Random")
-        ui.set(jyawslide, 7)
-        ui.set(bodyyaw, "Static")
-        ui.set(bodyyaw2, -95)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "STAND"
-    end
-end
+            end
 -- tank aa !!!
 local function Tank_aa()
 	local localplayer = entity.get_local_player()
 	local flags = entity.get_prop(localplayer, "m_fFlags")
 	local vx, vy = entity.get_prop(localplayer, "m_vecVelocity")
 	local velocity = math.floor(math.min(10000, math.sqrt(vx*vx + vy*vy) + 0.5))
-	if ui.get(slow_walk) and ui.get(slow_walk2) then
+	
         --slowwalk
         ui.set(pitch, "Default")
         ui.set(yawbase, "At targets")
@@ -306,69 +125,14 @@ local function Tank_aa()
         ui.set(bodyyaw2, 0)
         ui.set(freestand_byaw, false)
         ui.set(fyawlimit, 58)
-        state = "SLOWWALK"
-    elseif flags == 263 and velocity < 250 then
-        --crouch
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 3)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 42)
-        ui.set(bodyyaw, "Static")
-        ui.set(bodyyaw2, 23)
-        ui.set(freestand_byaw, false)
-        ui.set(fyawlimit, math.random(8,12))
-        state = "CROUCH"
-    elseif flags == 256 or flags == 262 or velocity > 250 then
-        --air
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 25)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, false)
-        ui.set(fyawlimit, 60)
-        state = "AIR"
-    elseif flags == 257 and velocity > 10 and velocity < 250 then
-        --moving
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 79)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, false)
-        ui.set(fyawlimit, 60)
-        state = "MOVING"
-    else
-        --stand
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 25)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, false)
-        ui.set(fyawlimit, 60)
-        state = "STAND"
-    end
-end
-
+           end
 -- DrainYaw !!!
 local function DrainYaw()
 	local localplayer = entity.get_local_player()
 	local flags = entity.get_prop(localplayer, "m_fFlags")
 	local vx, vy = entity.get_prop(localplayer, "m_vecVelocity")
 	local velocity = math.floor(math.min(10000, math.sqrt(vx*vx + vy*vy) + 0.5))
-	if ui.get(slow_walk) and ui.get(slow_walk2) then
+	
         --slowwalk
         ui.set(pitch, "Default")
         ui.set(yawbase, "At targets")
@@ -380,68 +144,13 @@ local function DrainYaw()
         ui.set(bodyyaw2, 0)
         ui.set(freestand_byaw, false)
         ui.set(fyawlimit, 60)
-        state = "SLOWWALK"
-    elseif flags == 263 and velocity < 250 then
-        --crouch
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 60)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, false)
-        ui.set(fyawlimit, 60)
-        state = "CROUCH"
-    elseif flags == 256 or flags == 262 or velocity > 250 then
-        --air
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, -10)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Offset")
-        ui.set(jyawslide, -10)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, -141)
-        ui.set(freestand_byaw, false)
-        ui.set(fyawlimit, 60)
-        state = "AIR"
-    elseif flags == 257 and velocity > 10 and velocity < 250 then
-        --moving
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")  
-        ui.set(jyawslide, 58)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 141)
-        ui.set(freestand_byaw, false)
-        ui.set(fyawlimit, 1)
-        state = "MOVING"
-    else
-        --stand
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 60)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, false)
-        ui.set(fyawlimit, 60)
-        state = "STAND"
-    end
-end
-
+            end
 local function Clown_aa()
 	local localplayer = entity.get_local_player()
 	local flags = entity.get_prop(localplayer, "m_fFlags")
 	local vx, vy = entity.get_prop(localplayer, "m_vecVelocity")
 	local velocity = math.floor(math.min(10000, math.sqrt(vx*vx + vy*vy) + 0.5))
-	if ui.get(slow_walk) and ui.get(slow_walk2) then
+	i
         --slowwalk
         ui.set(pitch, "Default")
         ui.set(yawbase, "At targets")
@@ -453,69 +162,14 @@ local function Clown_aa()
         ui.set(bodyyaw2, 180)
         ui.set(freestand_byaw, true)
         ui.set(fyawlimit, 60)
-        state = "SLOWWALK"
-    elseif flags == 263 and velocity < 250 then
-        --crouch
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 180)
-        ui.set(yawbody, "Spin")
-        ui.set(jyaw, "Random")
-        ui.set(jyawslide, math.random(160,180))
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 180)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "CROUCH"
-    elseif flags == 256 or flags == 262 or velocity > 250 then
-        --air
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 180)
-        ui.set(yawbody, "Spin")
-        ui.set(jyaw, "Random")
-        ui.set(jyawslide, math.random(160,180))
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 180)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "AIR"
-    elseif flags == 257 and velocity > 10 and velocity < 250 then
-        --moving
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 180)
-        ui.set(yawbody, "Spin")
-        ui.set(jyaw, "Random")
-        ui.set(jyawslide, math.random(160,180))
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 180)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "MOVING"
-    else
-        --stand
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 180)
-        ui.set(yawbody, "Spin")
-        ui.set(jyaw, "Random")
-        ui.set(jyawslide, math.random(160,180))
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 180)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "STAND"
-    end
-end
-
+           end
 --White aa
 local function White_aa()
 	local localplayer = entity.get_local_player()
 	local flags = entity.get_prop(localplayer, "m_fFlags")
 	local vx, vy = entity.get_prop(localplayer, "m_vecVelocity")
 	local velocity = math.floor(math.min(10000, math.sqrt(vx*vx + vy*vy) + 0.5))
-	if ui.get(slow_walk) and ui.get(slow_walk2) then
+	
         --slowwalk
         ui.set(pitch, "Default")
         ui.set(yawbase, "At targets")
@@ -527,62 +181,8 @@ local function White_aa()
         ui.set(bodyyaw2, 0)
         ui.set(freestand_byaw, true)
         ui.set(fyawlimit, 60)
-        state = "SLOWWALK"
-    elseif flags == 263 and velocity < 250 then
-        --crouch
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 25)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "CROUCH"
-    elseif flags == 256 or flags == 262 or velocity > 250 then
-        --air
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 25)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "AIR"
-    elseif flags == 257 and velocity > 10 and velocity < 250 then
-        --moving
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 25)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "MOVING"
-    else
-        --stand
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 0)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 25)
-        ui.set(bodyyaw, "Jitter")
-        ui.set(bodyyaw2, 0)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "STAND"
-    end
-end
-
+          end
+      
 
 
 local function static_aa()
@@ -590,7 +190,7 @@ local function static_aa()
 	local flags = entity.get_prop(localplayer, "m_fFlags")
 	local vx, vy = entity.get_prop(localplayer, "m_vecVelocity")
 	local velocity = math.floor(math.min(10000, math.sqrt(vx*vx + vy*vy) + 0.5))
-	if ui.get(slow_walk) and ui.get(slow_walk2) then
+	
         --slowwalk
         ui.set(pitch, "Default")
         ui.set(yawbase, "At targets")
@@ -602,61 +202,7 @@ local function static_aa()
         ui.set(bodyyaw2, 180)
         ui.set(freestand_byaw, true)
         ui.set(fyawlimit, 60)
-        state = "SLOWWALK"
-    elseif flags == 263 and velocity < 250 then
-        --crouch
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 1)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 1)
-        ui.set(bodyyaw, "Static")
-        ui.set(bodyyaw2, 180)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "CROUCH"
-    elseif flags == 256 or flags == 262 or velocity > 250 then
-        --air
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 1)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 1)
-        ui.set(bodyyaw, "Static")
-        ui.set(bodyyaw2, 180)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "AIR"
-    elseif flags == 257 and velocity > 10 and velocity < 250 then
-        --moving
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 1)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 1)
-        ui.set(bodyyaw, "Static")
-        ui.set(bodyyaw2, 180)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)
-        state = "MOVING"
-    else
-        --stand
-        ui.set(pitch, "Default")
-        ui.set(yawbase, "At targets")
-        ui.set(yaw, 1)
-        ui.set(yawbody, "180")
-        ui.set(jyaw, "Center")
-        ui.set(jyawslide, 1)
-        ui.set(bodyyaw, "Static")
-        ui.set(bodyyaw2, 180)
-        ui.set(freestand_byaw, true)
-        ui.set(fyawlimit, 60)        
-        state = "STAND"
-    end
-end
+        end
 
 
 --on_run_command
